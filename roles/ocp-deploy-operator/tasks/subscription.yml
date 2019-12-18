@@ -1,0 +1,22 @@
+- name: Operator - Get PackageManifest
+  delegate_to: localhost
+  set_fact:
+    pckmnfst: "{{ lookup('k8s', kubeconfig=kube_config_path, kind='PackageManifest', namespace=operator.subscription.namespace, resource_name=operator.subscription.name) }}"
+
+- debug:
+    var: pckmnfst
+
+- name: Operator - Set channel name
+  set_fact:
+    subscription_channel: "{{ pckmnfst.status.defaultChannel }}"
+
+- name: Operator - Create Subscription
+  delegate_to: localhost
+  k8s:
+    kind: Subscription
+    name: "{{ operator.name }}"
+    namespace: "{{ operator.namespace }}"
+    resource_definition: "{{ lookup('template', 'subscription.yml.j2') }}"
+    state: "{{ operator.state | default('present') }}"
+    kubeconfig: "{{ kube_config_path }}"
+

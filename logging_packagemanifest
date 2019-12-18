@@ -1,0 +1,325 @@
+apiVersion: packages.operators.coreos.com/v1
+kind: PackageManifest
+metadata:
+  creationTimestamp: "2019-11-26T02:32:35Z"
+  labels:
+    catalog: redhat-operators
+    catalog-namespace: openshift-marketplace
+    olm-visibility: hidden
+    openshift-marketplace: "true"
+    opsrc-datastore: "true"
+    opsrc-owner-name: redhat-operators
+    opsrc-owner-namespace: openshift-marketplace
+    opsrc-provider: redhat
+    provider: Red Hat, Inc
+    provider-url: ""
+  name: cluster-logging
+  namespace: openshift-marketplace
+  selfLink: /apis/packages.operators.coreos.com/v1/namespaces/openshift-marketplace/packagemanifests/cluster-logging
+spec: {}
+status:
+  catalogSource: redhat-operators
+  catalogSourceDisplayName: Red Hat Operators
+  catalogSourceNamespace: openshift-marketplace
+  catalogSourcePublisher: Red Hat
+  channels:
+  - currentCSV: clusterlogging.4.2.10-201912022352
+    currentCSVDesc:
+      annotations:
+        alm-examples: |-
+          [
+              {
+                "apiVersion": "logging.openshift.io/v1",
+                "kind": "ClusterLogging",
+                "metadata": {
+                  "name": "instance",
+                  "namespace": "openshift-logging"
+                 },
+                "spec": {
+                  "managementState": "Managed",
+                  "logStore": {
+                    "type": "elasticsearch",
+                    "elasticsearch": {
+                      "nodeCount": 3,
+                      "redundancyPolicy": "SingleRedundancy",
+                      "storage": {
+                        "storageClassName": "gp2",
+                        "size": "200G"
+                       }
+                     }
+                  },
+                  "visualization": {
+                    "type": "kibana",
+                    "kibana": {
+                      "replicas": 1
+                    }
+                  },
+                  "curation": {
+                    "type": "curator",
+                    "curator": {
+                      "schedule": "30 3 * * *"
+                    }
+                  },
+                  "collection": {
+                    "logs": {
+                      "type": "fluentd",
+                      "fluentd": {}
+                    }
+                  }
+                }
+              }
+          ]
+        capabilities: Seamless Upgrades
+        categories: OpenShift Optional, Logging & Tracing
+        certified: "false"
+        containerImage: registry.redhat.io/openshift4/ose-cluster-logging-operator@sha256:a3fdb20b4d825dee2e6491e07483f0e4a6da579f4b4bd835f9a7bedeb7b7beea
+        createdAt: "2018-08-01T08:00:00Z"
+        description: The Cluster Logging Operator for OKD provides a means for configuring
+          and managing your aggregated logging stack.
+        olm.skipRange: '>=4.1.0 <4.2.10-201912022352'
+        support: AOS Logging
+      apiservicedefinitions: {}
+      customresourcedefinitions:
+        owned:
+        - description: A Cluster Logging instance
+          displayName: Cluster Logging
+          kind: ClusterLogging
+          name: clusterloggings.logging.openshift.io
+          version: v1
+      description: |
+        # Cluster Logging
+        The Cluster Logging Operator orchestrates and manages the aggregated logging stack as a cluster-wide service.
+
+        ##Features
+        * **Create/Destroy**: Launch and create an aggregated logging stack to support the entire OKD cluster.
+        * **Simplified Configuration**: Configure your aggregated logging cluster's structure like components and end points easily.
+
+        ## Prerequisites and Requirements
+        ### Cluster Logging Namespace
+        Cluster logging and the Cluster Logging Operator is only deployable to the **openshift-logging** namespace. This namespace
+        must be explicitly created by a cluster administrator (e.g. `oc create ns openshift-logging`). To enable metrics
+        service discovery add namespace label `openshift.io/cluster-monitoring: "true"`.
+        ### Elasticsearch Operator
+        The Elasticsearch Operator is responsible for orchestrating and managing cluster logging's Elasticsearch cluster.  This
+        operator must be deployed to the global operator group namespace
+        ### Memory Considerations
+        Elasticsearch is a memory intensive application.  Cluster Logging will specify that each Elasticsearch node needs
+        16G of memory for both request and limit unless otherwise defined in the ClusterLogging custom resource. The initial
+        set of OKD nodes may not be large enough to support the Elasticsearch cluster.  Additional OKD nodes must be added
+        to the OKD cluster if you desire to run with the recommended(or better) memory. Each ES node can operate with a
+        lower memory setting though this is not recommended for production deployments.
+      displayName: Cluster Logging
+      installModes:
+      - supported: true
+        type: OwnNamespace
+      - supported: true
+        type: SingleNamespace
+      - supported: false
+        type: MultiNamespace
+      - supported: false
+        type: AllNamespaces
+      provider:
+        name: Red Hat, Inc
+      version: 4.2.10-201912022352
+    name: "4.2"
+  - currentCSV: clusterlogging.4.2.10-201912022352-s390x
+    currentCSVDesc:
+      annotations:
+        alm-examples: |-
+          [
+              {
+                "apiVersion": "logging.openshift.io/v1",
+                "kind": "ClusterLogging",
+                "metadata": {
+                  "name": "instance",
+                  "namespace": "openshift-logging"
+                 },
+                "spec": {
+                  "managementState": "Managed",
+                  "logStore": {
+                    "type": "elasticsearch",
+                    "elasticsearch": {
+                      "nodeCount": 3,
+                      "redundancyPolicy": "SingleRedundancy",
+                      "storage": {
+                        "storageClassName": "gp2",
+                        "size": "200G"
+                       }
+                     }
+                  },
+                  "visualization": {
+                    "type": "kibana",
+                    "kibana": {
+                      "replicas": 1
+                    }
+                  },
+                  "curation": {
+                    "type": "curator",
+                    "curator": {
+                      "schedule": "30 3 * * *"
+                    }
+                  },
+                  "collection": {
+                    "logs": {
+                      "type": "fluentd",
+                      "fluentd": {}
+                    }
+                  }
+                }
+              }
+          ]
+        capabilities: Seamless Upgrades
+        categories: OpenShift Optional, Logging & Tracing
+        certified: "false"
+        containerImage: registry.redhat.io/openshift4/ose-cluster-logging-operator@sha256:d563291072d06175bd29f5348c75a489b96b7fac237bc0c1f0cb3720842aea12
+        createdAt: "2018-08-01T08:00:00Z"
+        description: The Cluster Logging Operator for OKD provides a means for configuring
+          and managing your aggregated logging stack.
+        olm.skipRange: '>=4.1.0 <4.2.10-201912022352'
+        support: AOS Logging
+      apiservicedefinitions: {}
+      customresourcedefinitions:
+        owned:
+        - description: A Cluster Logging instance
+          displayName: Cluster Logging
+          kind: ClusterLogging
+          name: clusterloggings.logging.openshift.io
+          version: v1
+      description: |
+        # Cluster Logging
+        The Cluster Logging Operator orchestrates and manages the aggregated logging stack as a cluster-wide service.
+
+        ##Features
+        * **Create/Destroy**: Launch and create an aggregated logging stack to support the entire OKD cluster.
+        * **Simplified Configuration**: Configure your aggregated logging cluster's structure like components and end points easily.
+
+        ## Prerequisites and Requirements
+        ### Cluster Logging Namespace
+        Cluster logging and the Cluster Logging Operator is only deployable to the **openshift-logging** namespace. This namespace
+        must be explicitly created by a cluster administrator (e.g. `oc create ns openshift-logging`). To enable metrics
+        service discovery add namespace label `openshift.io/cluster-monitoring: "true"`.
+        ### Elasticsearch Operator
+        The Elasticsearch Operator is responsible for orchestrating and managing cluster logging's Elasticsearch cluster.  This
+        operator must be deployed to the global operator group namespace
+        ### Memory Considerations
+        Elasticsearch is a memory intensive application.  Cluster Logging will specify that each Elasticsearch node needs
+        16G of memory for both request and limit unless otherwise defined in the ClusterLogging custom resource. The initial
+        set of OKD nodes may not be large enough to support the Elasticsearch cluster.  Additional OKD nodes must be added
+        to the OKD cluster if you desire to run with the recommended(or better) memory. Each ES node can operate with a
+        lower memory setting though this is not recommended for production deployments.
+      displayName: Cluster Logging
+      installModes:
+      - supported: true
+        type: OwnNamespace
+      - supported: true
+        type: SingleNamespace
+      - supported: false
+        type: MultiNamespace
+      - supported: false
+        type: AllNamespaces
+      provider:
+        name: Red Hat, Inc
+      version: 4.2.10-201912022352
+    name: 4.2-s390x
+  - currentCSV: clusterlogging.4.1.27-201912030019
+    currentCSVDesc:
+      annotations:
+        alm-examples: |-
+          [
+              {
+                "apiVersion": "logging.openshift.io/v1",
+                "kind": "ClusterLogging",
+                "metadata": {
+                  "name": "instance",
+                  "namespace": "openshift-logging"
+                 },
+                "spec": {
+                  "managementState": "Managed",
+                  "logStore": {
+                    "type": "elasticsearch",
+                    "elasticsearch": {
+                      "nodeCount": 3,
+                      "redundancyPolicy": "SingleRedundancy",
+                      "storage": {
+                        "storageClassName": "gp2",
+                        "size": "200G"
+                       }
+                     }
+                  },
+                  "visualization": {
+                    "type": "kibana",
+                    "kibana": {
+                      "replicas": 1
+                    }
+                  },
+                  "curation": {
+                    "type": "curator",
+                    "curator": {
+                      "schedule": "30 3 * * *"
+                    }
+                  },
+                  "collection": {
+                    "logs": {
+                      "type": "fluentd",
+                      "fluentd": {}
+                    }
+                  }
+                }
+              }
+          ]
+        capabilities: Seamless Upgrades
+        categories: OpenShift Optional, Logging & Tracing
+        certified: "false"
+        containerImage: registry.redhat.io/openshift4/ose-cluster-logging-operator@sha256:7dcb5038236f5b9ba2ffcb15008288c0fcd18e4adbe307c00b7180384510daed
+        createdAt: "2018-08-01T08:00:00Z"
+        description: The Cluster Logging Operator for OKD provides a means for configuring
+          and managing your aggregated logging stack.
+        olm.skipRange: '>=4.1.0 <4.1.27-201912030019'
+        support: AOS Logging
+      apiservicedefinitions: {}
+      customresourcedefinitions:
+        owned:
+        - description: A Cluster Logging instance
+          displayName: Cluster Logging
+          kind: ClusterLogging
+          name: clusterloggings.logging.openshift.io
+          version: v1
+      description: |
+        # Cluster Logging
+        The Cluster Logging Operator orchestrates and manages the aggregated logging stack as a cluster-wide service.
+
+        ##Features
+        * **Create/Destroy**: Launch and create an aggregated logging stack to support the entire OKD cluster.
+        * **Simplified Configuration**: Configure your aggregated logging cluster's structure like components and end points easily.
+
+        ## Prerequisites and Requirements
+        ### Cluster Logging Namespace
+        Cluster logging and the Cluster Logging Operator is only deployable to the **openshift-logging** namespace. This namespace
+        must be explicitly created by a cluster administrator (e.g. `oc create ns openshift-logging`)
+        ### Elasticsearch Operator
+        The Elasticsearch Operator is responsible for orchestrating and managing cluster logging's Elasticsearch cluster.  This
+        operator must be deployed to the global operator group namespace
+        ### Memory Considerations
+        Elasticsearch is a memory intensive application.  Cluster Logging will specify that each Elasticsearch node needs
+        16G of memory for both request and limit unless otherwise defined in the ClusterLogging custom resource. The initial
+        set of OKD nodes may not be large enough to support the Elasticsearch cluster.  Additional OKD nodes must be added
+        to the OKD cluster if you desire to run with the recommended(or better) memory. Each ES node can operate with a
+        lower memory setting though this is not recommended for production deployments.
+      displayName: Cluster Logging
+      installModes:
+      - supported: true
+        type: OwnNamespace
+      - supported: true
+        type: SingleNamespace
+      - supported: false
+        type: MultiNamespace
+      - supported: false
+        type: AllNamespaces
+      provider:
+        name: Red Hat, Inc
+      version: 4.1.27-201912030019
+    name: preview
+  defaultChannel: "4.2"
+  packageName: cluster-logging
+  provider:
+    name: Red Hat, Inc

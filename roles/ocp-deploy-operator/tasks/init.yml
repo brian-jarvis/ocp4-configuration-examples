@@ -1,0 +1,5 @@
+- name: Operator - Get PackageManifest
+  delegate_to: localhost
+  set_fact:
+    packagemanifest.result: "{{ lookup('k8s', kubeconfig=kube_config_path, kind='PackageManifest', namespace=packagemanifest.namespace, resource_name=packagemanifest.name) }}"
+

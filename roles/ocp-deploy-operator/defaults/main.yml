@@ -1,0 +1,32 @@
+---
+# Operator object
+operator:
+  name: ""
+  namespace: ""
+  namespace_annotations: {}
+  namespace_labels: {}
+  state: present
+  operatorgroup:
+    spec: {}
+  rbac:
+    set_role: false
+    role: {}
+    rolebinding_subject: 
+      kind: ""
+      name: ""
+  subscription:
+    namespace: openshift-marketplace
+    name: ""
+
+packagemanifest.namespace: openshift-marketplace
+packagemanifest.name: ""
+packagemanifest.channelName: "{{ packagemanifest.result.status.defaultChannel }}"
+catalogSource:
+  name: "{{ packagemanifest.result.status.catalogSource }}"
+  namespace: "{{ packagemanifest.result.status.catalogSourceNamespace }}"
+
+operator:
+  name: "{{ packagemanifest.result.metadata.name }}"
+  channel: "{{ packagemanifest.result | json_query(op_channel_name_query) }}"
+
+op_channel_name_query: "status.channels[?name=={{ packagemanifest.channelName }}]"

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/sa.scc.mcs: s0:c12,c9
+    openshift.io/sa.scc.supplemental-groups: 1000150000/10000
+    openshift.io/sa.scc.uid-range: 1000150000/10000
+  creationTimestamp: "2019-11-26T02:18:55Z"
+  name: default
+  resourceVersion: "8222"
+  selfLink: /api/v1/namespaces/default
+  uid: 189e7f32-0ff3-11ea-9bd7-566f9e110085
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active

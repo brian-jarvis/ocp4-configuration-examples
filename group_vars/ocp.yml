@@ -1,0 +1,17 @@
+kube_config_path: /home/bjarvis/lab_setup/vst.bry.tamlab.rdu2.redhat.com/ignition_hosts/vst.bry.tamlab.rdu2.redhat.com/auth/kubeconfig
+
+
+elastic_role:
+  kind: Role
+  name: prometheus-k8s
+  rules:
+    - apiGroups:
+        - "*"
+      resources:
+        - services
+        - endpoints
+        - pods
+      verbs:
+        - get
+        - list
+        - watch

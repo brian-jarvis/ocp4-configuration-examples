@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: {{ operator.namespace }}
+{% if operator.operatorgroup.spec is defined %}
+spec: 
+{{ operator.operatorgroup.spec | to_nice_yaml }}
+{% endif %}

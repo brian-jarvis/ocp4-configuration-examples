@@ -1,0 +1,53 @@
+- name: Cluster Logging Operator Checkpoint Start
+  hosts: all
+  gather_facts: true
+  tasks:
+  - name: Isntall Elastic Search Operator
+    include_role:
+      name: ocp-deploy-operator
+    vars:
+      operator.namespace: "openshift-operators-redhat"
+      packagemanifest.name: "elasticsearch-operator"
+      operator.namespace_labels:
+          openshift.io/cluster-logging: true
+          openshift.io/cluster-monitoring: true
+
+      
+      # operator:
+      #   name: "elasticsearch"
+      #   namespace: "openshift-operators-redhat"
+      #   namespace_labels:
+      #     openshift.io/cluster-logging: true
+      #     openshift.io/cluster-monitoring: true
+      #   rbac:
+      #     set_role: true
+      #     role: "{{ elastic_role }}"
+      #     rolebinding_subject: 
+      #       kind: "ServiceAccount"
+      #       name: "{{ elastic_role.name }}"
+      #   subscription:
+      #     name: elasticsearch-operator
+      #     namespace: openshift-marketplace
+      #     catalogSourceName: redhat-operators
+
+
+  - name: Install Logging Operator
+    include_role:
+      name: ocp-deploy-operator
+    vars:
+      operator:
+        name: "logging-operators"
+        namespace: "openshift-logging"
+        namespace_labels:
+          openshift.io/cluster-logging: true
+          openshift.io/cluster-monitoring: true
+        rbac:
+          set_role: false
+        subscription:
+          name: cluster-logging
+          namespace: openshift-marketplace
+          catalogSourceName: redhat-operators
+        operator_group:
+          spec:
+            targetNamespaces:
+              - openshift-logging
