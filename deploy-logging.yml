@@ -2,52 +2,35 @@
   hosts: all
   gather_facts: true
   tasks:
-  - name: Isntall Elastic Search Operator
+  - name: Install Elastic Search Operator
     include_role:
       name: ocp-deploy-operator
     vars:
-      operator.namespace: "openshift-operators-redhat"
-      packagemanifest.name: "elasticsearch-operator"
-      operator.namespace_labels:
-          openshift.io/cluster-logging: true
-          openshift.io/cluster-monitoring: true
-
+      op_namespace: "openshift-operators-redhat"
+      pck_name: "elasticsearch-operator"
+      op_ns_lables:
+        openshift.io/cluster-logging: true
+        openshift.io/cluster-monitoring: true
+      rbac:
+        set_role: true
+        role: "{{ elastic_role }}"
+        rolebinding_subject: 
+          kind: "ServiceAccount"
+          name: "{{ elastic_role.name }}"
       
-      # operator:
-      #   name: "elasticsearch"
-      #   namespace: "openshift-operators-redhat"
-      #   namespace_labels:
-      #     openshift.io/cluster-logging: true
-      #     openshift.io/cluster-monitoring: true
-      #   rbac:
-      #     set_role: true
-      #     role: "{{ elastic_role }}"
-      #     rolebinding_subject: 
-      #       kind: "ServiceAccount"
-      #       name: "{{ elastic_role.name }}"
-      #   subscription:
-      #     name: elasticsearch-operator
-      #     namespace: openshift-marketplace
-      #     catalogSourceName: redhat-operators
-
 
   - name: Install Logging Operator
     include_role:
       name: ocp-deploy-operator
     vars:
-      operator:
-        name: "logging-operators"
-        namespace: "openshift-logging"
-        namespace_labels:
-          openshift.io/cluster-logging: true
-          openshift.io/cluster-monitoring: true
-        rbac:
-          set_role: false
-        subscription:
-          name: cluster-logging
-          namespace: openshift-marketplace
-          catalogSourceName: redhat-operators
-        operator_group:
-          spec:
-            targetNamespaces:
-              - openshift-logging
+      op_namespace: "openshift-logging"
+      pck_name: "cluster-logging"
+      op_ns_lables:
+        openshift.io/cluster-logging: true
+        openshift.io/cluster-monitoring: true
+      operatorgroup:
+        spec:
+          targetNamespaces: 
+            - openshift-logging
+      additional_resource_templates:
+        - crd_clusterlogging.yml.j2

@@ -4,9 +4,9 @@ metadata:
   generateName: "{{ operator.name }}-"
   namespace: "{{ operator.namespace }}" 
 spec:
-  channel: "{{ subscription_channel }}" 
+  channel: "{{ operator.channel.name }}" 
   installPlanApproval: "Automatic"
-  source: "{{ operator.subscription.catalogSourceName }}"
-  sourceNamespace: "{{ operator.subscription.namespace }}" 
-  name: "{{ operator.subscription.name }}"
+  source: "{{ catalogSource.name }}"
+  sourceNamespace: "{{ catalogSource.namespace }}" 
+  name: "{{ operator.name }}"
 

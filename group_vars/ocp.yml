@@ -15,3 +15,7 @@ elastic_role:
         - get
         - list
         - watch
+
+elastic_replica_count: 1
+elastic_redundancy_policy: ZeroRedundancy
+logging_kibana_replica: 1

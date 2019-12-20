@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: {{ operator.rbac.role.kind }}
+kind: {{ rbac.role.kind }}
 metadata:
-  name: {{ operator.rbac.role.name }}
-{% if operator.rbac.role.kind == "Role" %}
+  name: {{ rbac.role.name }}
+{% if rbac.role.kind == "Role" %}
   namespace: {{ operator.namespace }}
 {% endif %}
 rules: 
-{{ operator.rbac.role.rules | to_nice_yaml }}
+{{ rbac.role.rules | to_nice_yaml }}

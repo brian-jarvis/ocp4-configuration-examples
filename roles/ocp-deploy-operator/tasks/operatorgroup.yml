@@ -1,3 +1,4 @@
+
 - name: Operator - Create OperatorGroup
   delegate_to: localhost
   k8s:

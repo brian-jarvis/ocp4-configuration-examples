@@ -11,7 +11,11 @@
 
 - name: Create Role and RoleBinding
   include_tasks: role.yml
-  when: operator.rbac.set_role
+  when: rbac.set_role
 
 - name: Create Subscription
   include_tasks: subscription.yml
+
+- name: Create CustomResources
+  include_tasks: additionalresources.yml
+  when: additional_resource_templates is defined

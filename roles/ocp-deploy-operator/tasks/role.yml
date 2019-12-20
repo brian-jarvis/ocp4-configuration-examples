@@ -3,18 +3,18 @@
   delegate_to: localhost
   k8s:
     kind: Role
-    name: "{{ operator.rbac.role.name }}"
+    name: "{{ rbac.role.name }}"
     resource_definition: "{{ lookup('template', 'role.yml.j2')}}"
     state: "{{ operator.state | default('present') }}"
     kubeconfig: "{{ kube_config_path }}"
-  when: operator.rbac.set_role
+  when: rbac.set_role
 
 - name: Operator - Create RoleBinding
   delegate_to: localhost
   k8s:
-    kind: "{{ operator.rbac.role.kind }}Binding"
-    name: "{{ operator.rbac.role.name }}"
+    kind: "{{ rbac.role.kind }}Binding"
+    name: "{{ rbac.role.name }}"
     resource_definition: "{{ lookup('template', 'rolebinding.yml.j2')}}"
     state: "{{ operator.state | default('present') }}"
     kubeconfig: "{{ kube_config_path }}"
-  when: operator.rbac.set_role
+  when: rbac.set_role
