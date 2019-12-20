@@ -1,4 +1,4 @@
-- name: Cluster Logging Operator Checkpoint Start
+- name: Cluster Logging Operator Deploy
   hosts: all
   gather_facts: true
   tasks:

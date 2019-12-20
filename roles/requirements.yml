@@ -1,0 +1,13 @@
+# Ignore errors & force download
+# ansible-galaxy install -p ./roles -f -i -r requirements.yml
+
+
+- src: https://github.com/brian-jarvis/ansible-role-ocp-deploy-operator
+  version: master
+  scm: git
+  name: ocp-deploy-operator
+
+- src: https://github.com/brian-jarvis/ansible-role-ocp-catalogsource
+  version: master
+  scm: git
+  name: ocp-catalogsource
