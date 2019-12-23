@@ -1,0 +1,28 @@
+- name: ArgonCD Operator Deploy
+  hosts: all
+  gather_facts: true
+  tasks:
+  - name: Install Upstream Community Operators
+    include_role:
+      name: ocp-catalogsource
+    vars:
+      cat_name: upstream-community-operators
+      cat_namespace: openshift-marketplace
+      display_nm: "Upstream Community Operators"
+      publisher: "OperatorHub.io"
+      state: present
+
+
+  - name: Install ArgoCD Operator
+    include_role:
+      name: ocp-deploy-operator
+    vars:
+      op_namespace: "argocd-deployment"
+      pck_name: "argocd-operator"
+      op_ns_lables:
+        openshift.io/cluster-monitoring: true
+      operatorgroup:
+        spec:
+          targetNamespaces: 
+            - argocd-deployment
+      
