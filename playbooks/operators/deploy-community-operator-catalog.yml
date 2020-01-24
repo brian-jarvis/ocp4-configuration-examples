@@ -1,0 +1,14 @@
+- name: Add Upstream Community CatalogSource
+  hosts: all
+  gather_facts: true
+  tasks:
+  - name: Install Upstream Community Operators
+    include_role:
+      name: ocp-catalogsource
+    vars:
+      cat_name: upstream-community-operators
+      cat_namespace: openshift-marketplace
+      display_nm: "Upstream Community Operators"
+      publisher: "OperatorHub.io"
+      state: present
+

@@ -11,3 +11,8 @@
   version: master
   scm: git
   name: ocp-catalogsource
+
+- src: https://github.com/brian-jarvis/ansible-role-ocp-copy-machineconfig
+  version: master
+  scm: git
+  name: ocp-copy-machineconfig

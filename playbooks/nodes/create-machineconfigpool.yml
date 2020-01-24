@@ -1,0 +1,16 @@
+- name: Cluster create machine config based on worker
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Create Infra Machine Config
+    include_role:
+      name: ocp-copy-machineconfig
+    vars:
+      base_machineconfig_name: "worker"
+      machineconfig_name: "{{ item }}"
+    loop:
+      - "infra"
+      - "business"
+      - "perimeter"
+
+      
